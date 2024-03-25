@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+option go_package = "github.com/zhall0624/automator_worker";
+
+package automator_worker;
+
+service Worker {
+    rpc EnqueueJob (Job) returns (Job) {}
+}
+
+message Job {
+    string name = 1;
+}
