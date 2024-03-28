@@ -15,9 +15,12 @@ func ConnectDatabase() {
 		panic("Failed to connect to database!")
 	}
 
-	err = database.AutoMigrate(&IncomingWebHook{})
-	if err != nil {
-		return
+	tables := [4]interface{}{&IncomingWebHook{}, &OutGoingWebhookAction{}, &Workflow{}, &Step{}}
+	for _, table := range tables {
+		err = database.AutoMigrate(table)
+		if err != nil {
+			return
+		}
 	}
 
 	DB = database
