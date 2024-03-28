@@ -21,6 +21,14 @@ func (s *Step) Process() {
 
 func (s *Step) Action() Action {
 	var action Action
+
+	switch s.ActionType {
+	case "out_going_webhook_actions":
+		action = new(OutGoingWebhookAction)
+	default:
+		panic("bad")
+	}
 	DB.Table(s.ActionType).Where("id = ?", s.ActionID).Take(&action)
+
 	return action
 }
