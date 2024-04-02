@@ -1,5 +1,5 @@
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import Webhooks from "./components/Webhooks";
+import WebhooksIndex from "./components/WebhooksIndex";
 import "@fontsource/inter";
 
 const queryClient = new QueryClient();
@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <Webhooks></Webhooks>
+        <WebhooksIndex></WebhooksIndex>
       </QueryClientProvider>
     </>
   );

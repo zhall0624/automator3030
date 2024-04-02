@@ -1,22 +1,21 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { Input, Button, Typography } from "@mui/joy";
-
-type FormValues = {
-  name: string;
-};
+import Webhook from "../types/webhook";
 
 function WebhookForm() {
-  const { register, handleSubmit } = useForm<FormValues>();
-  const { mutate } = useMutation({
-    mutationFn: (data: FormValues) => {
-      return fetch("localhost:3000/incoming_webhooks", {
+  const { register, handleSubmit } = useForm<Webhook>();
+  const { mutateAsync } = useMutation({
+    mutationFn: (data: Webhook) => {
+      console.log("hi");
+      return fetch("http://localhost:8080/incoming-webhooks", {
         method: "post",
+        mode: "no-cors",
         body: JSON.stringify(data),
       });
     },
   });
-  const onSubmit: SubmitHandler<FormValues> = (data) => mutate(data);
+  const onSubmit: SubmitHandler<Webhook> = (data) => mutateAsync(data);
   return (
     <>
       <Typography level="h2">New Incoming Webhook</Typography>

@@ -1,38 +1,34 @@
-import WebhookForm from "./WebhookForm";
-import { Stack, Sheet, Typography, Box, Link } from "@mui/joy";
+import { Sheet, Box, Link } from "@mui/joy";
 import { useQuery } from "@tanstack/react-query";
+import Webhook from "../types/webhook";
 
-type Webhook = {
-  name: string;
-};
 function Webhooks() {
   const fetchWebhooks = (): Promise<Webhook[]> =>
-    fetch("localhost:3000/incoming_webhooks").then((response) =>
+    fetch("http://localhost:8080/incoming-webhooks").then((response) =>
       response.json(),
     );
-  const { data } = useQuery({
+  const { data, isError, isLoading } = useQuery<Webhook[]>({
     queryKey: ["webhooks"],
     queryFn: fetchWebhooks,
   });
+
+  if (isError) {
+    return <Sheet>Error Loading Webhooks</Sheet>;
+  }
+
+  if (isLoading) {
+    return <Sheet>Loading Webhooks</Sheet>;
+  }
   return (
     <>
-      <Typography level="h1">Incoming Webhooks</Typography>
-      <Stack>
-        {!data ? (
-          <></>
-        ) : (
-          data.map((webhook) => (
-            <Box>
-              <Sheet>Name: {webhook.name}</Sheet>
-              <Sheet>
-                <Link href="localhost:8080"> URL </Link>
-              </Sheet>
-            </Box>
-          ))
-        )}
-
-        <WebhookForm></WebhookForm>
-      </Stack>
+      {data?.map((webhook) => (
+        <Box>
+          <Sheet>Name: {webhook.name}</Sheet>
+          <Sheet>
+            <Link href="localhost:8080"> URL </Link>
+          </Sheet>
+        </Box>
+      ))}
     </>
   );
 }
