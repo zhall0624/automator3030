@@ -1,4 +1,4 @@
-import { Sheet, Box, Link } from "@mui/joy";
+import { Box, Link, Typography, Container } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import Webhook from "../types/webhook";
 
@@ -13,20 +13,20 @@ function Webhooks() {
   });
 
   if (isError) {
-    return <Sheet>Error Loading Webhooks</Sheet>;
+    return <Typography>Error Loading Webhooks</Typography>;
   }
 
   if (isLoading) {
-    return <Sheet>Loading Webhooks</Sheet>;
+    return <Typography>Loading Webhooks</Typography>;
   }
   return (
     <>
       {data?.map((webhook) => (
         <Box>
-          <Sheet>Name: {webhook.name}</Sheet>
-          <Sheet>
+          <Typography>Name: {webhook.name}</Typography>
+          <Container>
             <Link href="localhost:8080"> URL </Link>
-          </Sheet>
+          </Container>
         </Box>
       ))}
     </>
