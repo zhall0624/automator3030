@@ -7,4 +7,7 @@ import (
 
 func Middleware(e *echo.Echo) {
 	e.Use(middleware.Logger())
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"*"},
+	}))
 }
