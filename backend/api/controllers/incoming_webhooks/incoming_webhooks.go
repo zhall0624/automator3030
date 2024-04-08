@@ -17,8 +17,13 @@ func Index(c echo.Context) error {
 
 func Create(c echo.Context) error {
 	var webhook models.IncomingWebHook
-	c.Bind(&webhook)
+	err := c.Bind(&webhook)
+	if err != nil {
+		c.Logger().Printf("ERROR: %v", err)
+		return c.String(http.StatusBadRequest, "bad request")
+	}
 	result := models.DB.Create(&webhook)
+	c.Logger().Printf("Webhook %s", webhook.Name)
 
 	if result.Error != nil {
 		return c.JSON(http.StatusUnprocessableEntity, map[string]string{
@@ -36,7 +41,6 @@ func Process(c echo.Context) error {
 		})
 	}
 	payload, err := io.ReadAll(c.Request().Body)
-
 	if err != nil {
 		return c.JSON(http.StatusUnprocessableEntity, map[string]string{
 			"error": "Unprocessable Entry",
