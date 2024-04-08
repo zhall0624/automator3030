@@ -11,6 +11,9 @@ function WebhookForm() {
       return fetch("http://localhost:8080/incoming-webhooks", {
         method: "post",
         body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
     },
     onSuccess: () => {
