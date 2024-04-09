@@ -1,4 +1,5 @@
 type Webhook = {
+  id: string;
   name: string;
 };
 
