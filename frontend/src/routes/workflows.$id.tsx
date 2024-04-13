@@ -1,5 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { WorkflowManagement } from '../components/workflows'
 
 export const Route = createFileRoute('/workflows/$id')({
-  component: () => <div>Hello /workflows/$id!</div>
+  component: () => <WorkflowManagement></WorkflowManagement>
 })
+
