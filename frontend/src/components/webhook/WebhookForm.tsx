@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Input, Button, Typography } from "@mui/material";
-import Webhook from "../types/webhook";
+import { Webhook } from "../../types";
 
 function WebhookForm() {
   const { register, handleSubmit } = useForm<Webhook>();

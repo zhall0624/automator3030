@@ -2,7 +2,7 @@ import { createFileRoute, Link as RouterLink } from '@tanstack/react-router'
 import { Container, Table, TableHead, TableCell, Typography, TableRow, Link, Input, Button, TableBody } from "@mui/material"
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
-import Workflow from "../types/workflow"
+import { Workflow } from "../types"
 
 export const Route = createFileRoute('/workflows')({
   component: () => <Workflows></Workflows>,

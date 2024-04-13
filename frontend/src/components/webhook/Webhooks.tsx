@@ -1,6 +1,6 @@
 import { Box, Link, Typography, Container } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import Webhook from "../types/webhook";
+import { Webhook } from "../../types";
 
 function Webhooks() {
   const fetchWebhooks = (): Promise<Webhook[]> =>
