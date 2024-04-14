@@ -55,7 +55,7 @@ export default function Workflows() {
         <TableBody>
           {data?.map((row) => (
             <TableRow key={row.id} >
-              <TableCell><Link component={RouterLink} to="/blog/$id" params={{ id: row.id }}>{row.name}</Link></TableCell>
+              <TableCell><Link component={RouterLink} to="/workflows/$id" params={{ id: row.id }}>{row.name}</Link></TableCell>
             </TableRow>
           ))}
         </TableBody>

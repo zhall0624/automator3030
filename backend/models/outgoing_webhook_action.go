@@ -4,16 +4,20 @@ import (
 	"bytes"
 	"errors"
 	"net/http"
+	"time"
 
 	"gorm.io/gorm"
 )
 
 type OutGoingWebhookAction struct {
-	gorm.Model
+	ID         int `gorm:"primaryKey" json:"id"`
 	Url        string
 	HTTPMethod string
 	Payload    string
-	Step       Step `gorm:"polymorphic:Action"`
+	Step       Step           `gorm:"polymorphic:Action"`
+	CreatedAt  time.Time      `json:"createdAt"`
+	UpdatedAt  time.Time      `json:"updatedAt"`
+	DeletedAt  gorm.DeletedAt `gorm:"index" json:"deletedAt"`
 }
 
 func (a *OutGoingWebhookAction) Run() error {

@@ -19,7 +19,7 @@ func Show(c echo.Context) error {
 	if err := c.Bind(&workflow); err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Bad Request"})
 	}
-	if err := models.DB.Find(&workflow); err != nil {
+	if result := models.DB.Find(&workflow); result.Error != nil {
 		return c.JSON(http.StatusNotFound, map[string]string{"error": "Workflow not found"})
 	}
 
@@ -31,7 +31,10 @@ func Create(c echo.Context) error {
 	if err := c.Bind(&workflow); err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Bad Request"})
 	}
-	models.DB.Create(&workflow)
+
+	if result := models.DB.Create(&workflow); result.Error != nil {
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Workflow not found"})
+	}
 
 	return c.JSON(http.StatusCreated, &workflow)
 }

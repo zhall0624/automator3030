@@ -31,7 +31,7 @@ export default function WorkflowManagement() {
   return (
     <>
       <Typography>Workflow: {data.name}</Typography>
-
+      <Typography></Typography>
     </>
   )
 }

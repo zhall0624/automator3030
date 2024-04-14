@@ -11,17 +11,12 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as WorkflowsImport } from './routes/workflows'
 import { Route as IncomingwebhooksImport } from './routes/incoming_webhooks'
 import { Route as IndexImport } from './routes/index'
+import { Route as WorkflowsIndexImport } from './routes/workflows.index'
 import { Route as WorkflowsIdImport } from './routes/workflows.$id'
 
 // Create/Update Routes
-
-const WorkflowsRoute = WorkflowsImport.update({
-  path: '/workflows',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const IncomingwebhooksRoute = IncomingwebhooksImport.update({
   path: '/incoming_webhooks',
@@ -33,9 +28,14 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const WorkflowsIndexRoute = WorkflowsIndexImport.update({
+  path: '/workflows/',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const WorkflowsIdRoute = WorkflowsIdImport.update({
-  path: '/$id',
-  getParentRoute: () => WorkflowsRoute,
+  path: '/workflows/$id',
+  getParentRoute: () => rootRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -50,13 +50,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IncomingwebhooksImport
       parentRoute: typeof rootRoute
     }
-    '/workflows': {
-      preLoaderRoute: typeof WorkflowsImport
-      parentRoute: typeof rootRoute
-    }
     '/workflows/$id': {
       preLoaderRoute: typeof WorkflowsIdImport
-      parentRoute: typeof WorkflowsImport
+      parentRoute: typeof rootRoute
+    }
+    '/workflows/': {
+      preLoaderRoute: typeof WorkflowsIndexImport
+      parentRoute: typeof rootRoute
     }
   }
 }
@@ -66,7 +66,8 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren([
   IndexRoute,
   IncomingwebhooksRoute,
-  WorkflowsRoute.addChildren([WorkflowsIdRoute]),
+  WorkflowsIdRoute,
+  WorkflowsIndexRoute,
 ])
 
 /* prettier-ignore-end */
