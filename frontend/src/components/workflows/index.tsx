@@ -1,5 +1,5 @@
-import Workflows from "./workflows"
-import WorkflowManagement from "./workflow_mangement"
+import Workflows from "./Workflows"
+import WorkflowManagement from "./WorkflowManagement"
 export {
   Workflows,
   WorkflowManagement,
