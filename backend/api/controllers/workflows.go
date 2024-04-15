@@ -1,4 +1,4 @@
-package workflows
+package controllers
 
 import (
 	"net/http"
@@ -7,13 +7,13 @@ import (
 	"github.com/zhall0624/automator3030/models"
 )
 
-func Index(c echo.Context) error {
+func GetAllWorkflows(c echo.Context) error {
 	var workflows []models.Workflow
 	models.DB.Find(&workflows)
 	return c.JSON(http.StatusOK, &workflows)
 }
 
-func Show(c echo.Context) error {
+func GetWorkflow(c echo.Context) error {
 	var workflow models.Workflow
 
 	if err := c.Bind(&workflow); err != nil {
@@ -26,7 +26,7 @@ func Show(c echo.Context) error {
 	return c.JSON(http.StatusOK, &workflow)
 }
 
-func Create(c echo.Context) error {
+func CreateWorkflow(c echo.Context) error {
 	var workflow models.Workflow
 	if err := c.Bind(&workflow); err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Bad Request"})
@@ -39,7 +39,7 @@ func Create(c echo.Context) error {
 	return c.JSON(http.StatusCreated, &workflow)
 }
 
-func Update(c echo.Context) error {
+func UpdateWorkflow(c echo.Context) error {
 	var workflow models.Workflow
 	if err := c.Bind(&workflow); err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Bad Request"})
@@ -50,7 +50,7 @@ func Update(c echo.Context) error {
 	return c.JSON(http.StatusOK, &workflow)
 }
 
-func Delete(c echo.Context) error {
+func DeleteWorkflow(c echo.Context) error {
 	var workflow models.Workflow
 	if err := c.Bind(workflow); err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Bad Request"})

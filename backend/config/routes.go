@@ -2,17 +2,17 @@ package config
 
 import (
 	"github.com/labstack/echo/v4"
-	"github.com/zhall0624/automator3030/api/controllers/incoming_webhooks"
-	"github.com/zhall0624/automator3030/api/controllers/workflows"
+	"github.com/zhall0624/automator3030/api/controllers"
 )
 
 func Routes(e *echo.Echo) {
-	e.GET("/incoming-webhooks", incoming_webhooks.Index)
-	e.POST("/incoming-webhooks", incoming_webhooks.Create)
-	e.POST("/incoming-webhooks/:id", incoming_webhooks.Process)
-	e.GET("/workflows/:id", workflows.Show)
-	e.GET("/workflows", workflows.Index)
-	e.POST("/workflows", workflows.Create)
-	e.PATCH("/workflows/:id", workflows.Update)
-	e.DELETE("/workflows/:id", workflows.Delete)
+	e.GET("/incoming-webhooks", controllers.GetIncomingWebhooks)
+	e.POST("/incoming-webhooks/:id", controllers.CreateIncomingWebhook)
+	e.POST("/incoming-webhooks", controllers.ProcessIncomingWebhook)
+
+	e.GET("/workflows/:id", controllers.GetWorkflow)
+	e.PATCH("/workflows/:id", controllers.UpdateWorkflow)
+	e.GET("/workflows", controllers.GetAllWorkflows)
+	e.POST("/workflows", controllers.CreateWorkflow)
+	e.DELETE("/workflows/:id", controllers.DeleteWorkflow)
 }

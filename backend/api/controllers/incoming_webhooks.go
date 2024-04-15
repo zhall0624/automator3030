@@ -1,4 +1,4 @@
-package incoming_webhooks
+package controllers
 
 import (
 	"io"
@@ -9,13 +9,13 @@ import (
 	"github.com/zhall0624/automator3030/models"
 )
 
-func Index(c echo.Context) error {
+func GetIncomingWebhooks(c echo.Context) error {
 	var webhooks []models.IncomingWebHook
 	models.DB.Find(&webhooks)
 	return c.JSON(http.StatusOK, webhooks)
 }
 
-func Create(c echo.Context) error {
+func CreateIncomingWebhook(c echo.Context) error {
 	var webhook models.IncomingWebHook
 	err := c.Bind(&webhook)
 	if err != nil {
@@ -33,7 +33,7 @@ func Create(c echo.Context) error {
 	return c.JSON(http.StatusCreated, webhook)
 }
 
-func Process(c echo.Context) error {
+func ProcessIncomingWebhook(c echo.Context) error {
 	id, conv_err := strconv.Atoi(c.Param("id"))
 	if conv_err != nil {
 		return c.JSON(http.StatusUnprocessableEntity, map[string]string{

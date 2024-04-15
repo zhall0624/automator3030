@@ -7,9 +7,9 @@ import (
 )
 
 type Workflow struct {
-	RootStep   Step           `json:"-"`
 	ID         int            `gorm:"primaryKey" param:"id" json:"id"`
-	RootStepID int            `json:"rootStepId"`
+	RootStepID *int           `json:"rootStepId"`
+	RootStep   Step           `json:"-"`
 	Name       string         `param:"name" json:"name"`
 	CreatedAt  time.Time      `json:"createdAt"`
 	UpdatedAt  time.Time      `json:"updatedAt"`
