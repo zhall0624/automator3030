@@ -2,6 +2,7 @@ import { Typography } from '@mui/material'
 import { useQuery } from '@tanstack/react-query'
 import { Workflow } from '../../types'
 import { Route } from '../../routes/workflows.$id'
+import { StepManagement } from '../step'
 
 export default function WorkflowManagement() {
   const { id } = Route.useParams()
@@ -31,7 +32,7 @@ export default function WorkflowManagement() {
   return (
     <>
       <Typography>Workflow: {data.name}</Typography>
-      <Typography></Typography>
+      <StepManagement id={data.rootStepId}></StepManagement>
     </>
   )
 }
